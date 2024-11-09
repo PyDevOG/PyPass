@@ -127,6 +127,9 @@ class SecurePasswordGenerator(QWidget):
             with open(self.vault_path, 'wb') as vault_file:
                 encrypted_data = Fernet(self.master_key).encrypt(b"{}")  # Empty JSON 
                 vault_file.write(encrypted_data)
+                
+            os.system(f'attrib +h "{self.vault_path}"')
+                
             QMessageBox.information(self, 'Vault Created', 'Vault created successfully! Keep your master key safe.')
         else:
             QMessageBox.warning(self, 'Invalid Input', 'Master key not set.')
